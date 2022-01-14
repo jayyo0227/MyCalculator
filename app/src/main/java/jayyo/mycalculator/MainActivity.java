@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 comfirmUserName.setClickable(false);
 
-                String userName = editTextUserName.getText().toString();
+                UserData.userName = editTextUserName.getText().toString();
 
                 Intent intent = new Intent(MainActivity.this, Calculator.class);
                 startActivity(intent);
@@ -39,8 +39,12 @@ public class MainActivity extends AppCompatActivity {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-
-                        comfirmUserName.setClickable(true);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                comfirmUserName.setClickable(true);
+                            }
+                        });
                     }
                 }).start();
             }
